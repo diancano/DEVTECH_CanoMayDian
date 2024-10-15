@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overflow Scroll with Long Message</title>
+    <style>
+        .scroll-box {
+            width: 150px;
+            height: 100px;
+            border: px solid black ;
+            padding: 10px;
+            overflow: scroll;
+           background-color: white;
+           
+        }
+        long-message{
+            width: 500px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Overflow Scroll with long Message</h1>
+    <div class="scroll-box">
+        This is a very Long message that doesnt fit in the box .
+        it forces both horizontal and vertical  scrollbars to appear .
+         you can scroll through the message  to read it carefully.
+    </div>
+</body>
+</html>
