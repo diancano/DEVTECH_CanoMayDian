@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+       background-color: purple;
+       transition: width 2s;
+
+        }
+
+        div.linear:hover{
+            width: 300px;
+        }
+        div.ease-out:hover{
+            transition: width 2s cubic-bezier(0.45,0.24,0.58,1.0);
+            width: 300px;
+        }
+        div.ease-out:hover{
+            transition: width 2s cubic-bezier(0,0,0,1);
+            width: 300px;
+        }
+        div.ease-out:hover{
+            transition: width 2s cubic-bezier(1.45, 0.0, 0.58,1.0);
+            width: 300px;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="linear"></div>
+    <div class="ease-in"></div>
+    <div class="ease-out"></div>
+    <div class="ease-in-out"></div>
+</body>
+</html>
