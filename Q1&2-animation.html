@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moving Car Animation with Color Change</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #87CEEB; /* Sky blue for background */
+      overflow: hidden;
+    }
+
+    /* Container to hold the car */
+    .road {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background-color: gray; /* Initial road color */
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    /* The moving car */
+    .car {
+      position: absolute;
+      bottom: 10px;  /* Place the car on the road */
+      width: 100px;
+      height: 50px;
+      background-color: #f347ff; /* Initial car color */
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Wheels of the car */
+    .wheel {
+      position: absolute;
+      bottom: 10px;
+      width: 20px;
+      height: 20px;
+      background-color: #333;
+      border-radius: 50%;
+    }
+
+    .wheel.left {
+      left: 20px;
+    }
+
+    .wheel.right {
+      right: 20px;
+    }
+
+    /* Button to control car movement */
+    .control-btn {
+      position: absolute;
+      bottom: 30px;
+      padding: 10px 20px;
+      font-size: 20px;
+      background-color:white;
+      border: none;
+      border-radius: 5px;
+      color:green;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .control-btn:hover {
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="road">
+    <div class="car">
+      <div class="wheel left"></div>
+      <div class="wheel right"></div>
+    </div>
+    <button class="control-btn" onclick="toggleCarMovement()">Start Moving</button>
+  </div>
+
+  <script>
+    // JavaScript to control car movement
+    let car = document.querySelector('.car');
+    let road = document.querySelector('.road'); // The road background
+    let button = document.querySelector('.control-btn');
+    let isMoving = false;  // Flag to track if the car is moving
+    let carPosition = 0;   // Initial position of the car
+    let screenWidth = window.innerWidth;  // Screen width (full lap length)
+    let lastLapPosition = 0;  // Last position where the lap finished
+
+    // Function to toggle car movement
+    function toggleCarMovement() {
+      if (isMoving) {
+        stopCar();
+      } else {
+        startCar();
+      }
+    }
+
+    // Start the car moving
+    function startCar() {
+      isMoving = true;
+      button.textContent = "Stop Moving"; // Update button text
+      moveCar();
+    }
+
+    // Stop the car
+    function stopCar() {
+      isMoving = false;
+      button.textContent = "Start Moving"; // Reset button text
+      cancelAnimationFrame(animationId);  // Stop animation
+    }
+
+    // Function to change the car's color randomly
+    function changeCarColor() {
+      // Generate a random color
+      const randomColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+      car.style.backgroundColor = randomColor;
+    }
+
+    // Function to change the road's background color randomly
+    function changeRoadColor() {
+      // Generate a random color for the road
+      const randomColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+      road.style.backgroundColor = randomColor;
+    }
+
+    // Move the car continuously
+    function moveCar() {
+      if (isMoving) {
+        carPosition += 5;  // Move the car by 5px
+        car.style.left = carPosition + 'px';  // Update the car's position
+
+        // Check if the car has completed a lap (screen width)
+        if (carPosition >= screenWidth) {
+          carPosition = -100; // Reset position to start
+          lastLapPosition = carPosition; // Mark last lap finish
+          changeCarColor(); // Change car color after a lap
+          changeRoadColor(); // Change road background color after a lap
+        }
+
+        // Repeat the movement using requestAnimationFrame
+        animationId = requestAnimationFrame(moveCar);
+      }
+    }
+
+    // Variable to hold animation frame ID
+    let animationId;
+  </script>
+</body>
+</html>
